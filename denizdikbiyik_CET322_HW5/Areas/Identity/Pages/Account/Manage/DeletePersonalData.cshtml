@@ -1,0 +1,43 @@
+﻿@page
+@model DeletePersonalDataModel
+@{
+    ViewData["Title"] = "Kişisel verileri sil";
+    ViewData["ActivePage"] = ManageNavPages.PersonalData;
+}
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jodit/3.1.92/jodit.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jodit/3.1.92/jodit.min.js"></script>
+
+<section class="ab-info-main py-md-5">
+    <div class="container py-md-3">
+        <h4>@ViewData["Title"]</h4>
+
+        <div class="alert alert-warning" role="alert">
+            <p>
+                <span class="glyphicon glyphicon-warning-sign"></span>
+                <strong>Bu veriyi silmek hesabınızı kaldırır, bu işlem geri alınamaz.</strong>
+            </p>
+        </div>
+
+        <div>
+            <form id="delete-user" method="post" class="form-group">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                @if (Model.RequirePassword)
+                {
+                    <div class="form-group">
+                        <label asp-for="Input.Password"></label>
+                        <input asp-for="Input.Password" class="form-control" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                }
+                <button class="btn btn-danger" type="submit">Bilgileri sil ve hesabı kapat</button>
+            </form>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        var editor = new Jodit('#Content');
+    </script>
+}

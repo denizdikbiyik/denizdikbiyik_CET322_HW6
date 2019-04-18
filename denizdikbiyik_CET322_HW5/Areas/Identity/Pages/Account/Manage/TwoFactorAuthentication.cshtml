@@ -1,0 +1,67 @@
+﻿@page
+@model TwoFactorAuthenticationModel
+@{
+    ViewData["Title"] = "İki faktörlü kimlik (2FA)";
+    ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
+}
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jodit/3.1.92/jodit.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jodit/3.1.92/jodit.min.js"></script>
+
+<section class="ab-info-main py-md-5">
+    <div class="container py-md-3">
+
+        <partial name="_StatusMessage" for="StatusMessage" />
+        <h4>@ViewData["Title"]</h4>
+        @if (Model.Is2faEnabled)
+        {
+            if (Model.RecoveryCodesLeft == 0)
+            {
+                <div class="alert alert-danger">
+                    <strong>Hiç geri alma kodunuz yok.</strong>
+                    <p>Şunu yapmak zorundasınız: <a asp-page="./GenerateRecoveryCodes">yeni geri alma kodu oluşturun</a> (geri alma kodu ile giriş yapmadan önce).</p>
+                </div>
+            }
+            else if (Model.RecoveryCodesLeft == 1)
+            {
+                <div class="alert alert-danger">
+                    <strong>Sadece 1 geri alma kodunuz kaldı.</strong>
+                    <p>Şunu yapabilirsiniz: <a asp-page="./GenerateRecoveryCodes">birkaç geri alma kodu üretin</a>.</p>
+                </div>
+            }
+            else if (Model.RecoveryCodesLeft <= 3)
+            {
+                <div class="alert alert-warning">
+                    <strong>Şu kadar: @Model.RecoveryCodesLeft geri alma kodunuz kaldı.</strong>
+                    <p>Şunu yapmalısınız: <a asp-page="./GenerateRecoveryCodes">birkaç geri alma kodu üretin</a>.</p>
+                </div>
+            }
+
+            if (Model.IsMachineRemembered)
+            {
+                <form method="post" style="display: inline-block">
+                    <button type="submit" class="btn btn-primary">Bu tarayıcıyı unut</button>
+                </form>
+            }
+            <a asp-page="./Disable2fa" class="btn btn-primary">2FA engelle</a>
+            <a asp-page="./GenerateRecoveryCodes" class="btn btn-primary">Geri alma kodlarını resetle</a>
+        }
+
+        <h5>Authenticator app</h5>
+        @if (!Model.HasAuthenticator)
+        {
+            <a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-primary">Kimlik uygulaması ekle</a>
+        }
+        else
+        {
+            <a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-primary">Kimlik uygulaması kur</a>
+            <a id="reset-authenticator" asp-page="./ResetAuthenticator" class="btn btn-primary">Kimlik uygulaması resetle</a>
+        }
+    </div>
+</section>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        var editor = new Jodit('#Content');
+    </script>
+}

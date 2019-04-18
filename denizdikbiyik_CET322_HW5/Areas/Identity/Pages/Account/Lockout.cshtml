@@ -1,0 +1,22 @@
+﻿@page
+@model LockoutModel
+@{
+    ViewData["Title"] = "Kitlendi";
+}
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jodit/3.1.92/jodit.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jodit/3.1.92/jodit.min.js"></script>
+
+<section class="ab-info-main py-md-5">
+    <div class="container py-md-3">
+        <header>
+            <h1 class="text-danger">@ViewData["Title"]</h1>
+            <p class="text-danger">Bu hesap kitlendi, lütfen daha sonra tekrar deneyiniz.</p>
+        </header>
+    </div>
+</section>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        var editor = new Jodit('#Content');
+    </script>
+}

@@ -1,0 +1,30 @@
+﻿@{
+    Layout = "/Areas/Identity/Pages/_Layout.cshtml";
+}
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jodit/3.1.92/jodit.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jodit/3.1.92/jodit.min.js"></script>
+<section class="ab-info-main py-md-5">
+    <div class="container py-md-3">
+        <h1>Hesabınızı yönetin</h1>
+        <div>
+            <h4>Hesap ayarlarınızı değiştirin</h4>
+            <hr />
+            <div class="row">
+                <div class="col-md-3">
+                    <partial name="_ManageNav" />
+                </div>
+                <div class="col-md-9">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    @*<partial name="_ValidationScriptsPartial" />
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        <script>
+            var editor = new Jodit('#Content');
+        </script>*@
+    @RenderSection("Scripts", required: false)
+}

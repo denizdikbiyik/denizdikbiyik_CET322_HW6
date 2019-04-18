@@ -1,0 +1,36 @@
+﻿@page
+@model ResetAuthenticatorModel
+@{
+    ViewData["Title"] = "Kimlik anahtarını resetle";
+    ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
+}
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jodit/3.1.92/jodit.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jodit/3.1.92/jodit.min.js"></script>
+
+<section class="ab-info-main py-md-5">
+    <div class="container py-md-3">
+        <partial name="_StatusMessage" for="StatusMessage" />
+        <h4>@ViewData["Title"]</h4>
+        <div class="alert alert-warning" role="alert">
+            <p>
+                <span class="glyphicon glyphicon-warning-sign"></span>
+                <strong>Eğer kimlik anahtarınızı resetlerseniz kimlik uygulamanız siz onu yeniden derleyene kadar çalışmayacaktır.</strong>
+            </p>
+            <p>
+                Bu işlem siz kimlik uygulamanızı doğrulayana kadar 2FA engeller.
+                Eğer kimlik uygulamanızla etkileşimi tamamlamazsanız hesabınızı kaybedebilirsiniz.
+            </p>
+        </div>
+        <div>
+            <form id="reset-authenticator-form" method="post" class="form-group">
+                <button id="reset-authenticator-button" class="btn btn-danger" type="submit">Kimlik anahtarını resetle</button>
+            </form>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        var editor = new Jodit('#Content');
+    </script>
+}

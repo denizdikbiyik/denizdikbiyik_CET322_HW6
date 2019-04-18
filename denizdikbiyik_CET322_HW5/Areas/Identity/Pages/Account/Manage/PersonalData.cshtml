@@ -1,0 +1,36 @@
+﻿@page
+@model PersonalDataModel
+@{
+    ViewData["Title"] = "Kişisel veriler";
+    ViewData["ActivePage"] = ManageNavPages.PersonalData;
+}
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jodit/3.1.92/jodit.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jodit/3.1.92/jodit.min.js"></script>
+
+<section class="ab-info-main py-md-5">
+    <div class="container py-md-3">
+        <h4>@ViewData["Title"]</h4>
+
+        <div class="row">
+            <div class="col-md-6">
+                <p>Hesabınız bize verilen kişisel verileri içerir. Bu sayfa onları indirmenizi veya silmenizi sağlar.</p>
+                <p>
+                    <strong>Bu verileri silmek hesabınızı kaldırır ve bu işlem geri alınamaz.</strong>
+                </p>
+                <form id="download-data" asp-page="DownloadPersonalData" method="post" class="form-group">
+                    <button class="btn btn-primary" type="submit">İndir</button>
+                </form>
+                <p>
+                    <a id="delete" asp-page="DeletePersonalData" class="btn btn-primary">Sil</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        var editor = new Jodit('#Content');
+    </script>
+}

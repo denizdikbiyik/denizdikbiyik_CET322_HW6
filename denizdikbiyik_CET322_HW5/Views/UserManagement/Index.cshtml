@@ -1,0 +1,83 @@
+﻿@model IEnumerable<denizdikbiyik_CET322_HW5.ViewModels.UserModel>
+@{
+    ViewData["Title"] = "Kullanıcı Yönetimi";
+}
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jodit/3.1.92/jodit.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jodit/3.1.92/jodit.min.js"></script>
+
+<section class="ab-info-main py-md-5">
+    <div class="container py-md-3">
+        <h1>Kullanıcı Yönetimi</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Kullanıcı Adı
+                        </th>
+                        <th>
+                            Ad Soyad
+                        </th>
+                        <th>
+                            Admin Mi?
+                        </th>
+                        <th>
+                            Admin Yap-Kaldır
+                        </th>
+                        <th>
+                            Departman Yöneticisi Mi?
+                        </th>
+                        <th>
+                            Departman Yöneticisi Yap-Kaldır
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsAdmin)
+                        </td>
+                        <td>
+                            @if (item.IsAdmin)
+                            {
+                                <a asp-action="RemoveAdmin" asp-route-id="@item.Id" class="btn btn-danger">Yöneticilikten Çıkar</a>
+                            }
+                            else
+                            {
+                                <a asp-action="MakeAdmin" asp-route-id="@item.Id" class="btn btn-primary">Yönetici Yap</a>
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsDepartmentAdmin)
+                        </td>
+                        <td>
+                            @if (item.IsDepartmentAdmin)
+                            {
+                                <a asp-action="RemoveDepartmentAdmin" asp-route-id="@item.Id" class="btn btn-danger">Departman Yöneticiliğinden Çıkar</a>
+                            }
+                            else
+                            {
+                                <a asp-action="MakeDepartmentAdmin" asp-route-id="@item.Id" class="btn btn-primary">Departman Yöneticisi Yap</a>
+                            }
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+    </div>
+</section>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        var editor = new Jodit('#Content');
+    </script>
+}

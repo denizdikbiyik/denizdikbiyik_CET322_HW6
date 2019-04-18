@@ -1,0 +1,37 @@
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<CetUser> SignInManager
+@inject UserManager<CetUser> UserManager
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jodit/3.1.92/jodit.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jodit/3.1.92/jodit.min.js"></script>
+
+<section class="ab-info-main py-md-5">
+    <div class="container py-md-3">
+
+        <ul class="navbar-nav">
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <li>
+                    <a class="btn btn-outline-primary" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Merhaba @User.Identity.Name!</a>
+                </li>
+                <li>
+                    <a class="btn btn-outline-primary" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">Cikis Yap</a>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item">
+                    <a class="btn btn-outline-primary" asp-area="Identity" asp-page="/Account/Register">Kayit Ol</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-outline-primary" asp-area="Identity" asp-page="/Account/Login">Giris Yap</a>
+                </li>
+            }
+        </ul>
+    </div>
+</section>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        var editor = new Jodit('#Content');
+    </script>
+}

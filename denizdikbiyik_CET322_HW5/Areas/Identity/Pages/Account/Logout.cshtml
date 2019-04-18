@@ -1,0 +1,22 @@
+﻿@page
+@model LogoutModel
+@{
+    ViewData["Title"] = "Çıkış yap";
+}
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jodit/3.1.92/jodit.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jodit/3.1.92/jodit.min.js"></script>
+
+<section class="ab-info-main py-md-5">
+    <div class="container py-md-3">
+        <header>
+            <h1>@ViewData["Title"]</h1>
+            <p>Başarılı bir şekilde çıkış yaptınız.</p>
+        </header>
+    </div>
+</section>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        var editor = new Jodit('#Content');
+    </script>
+}

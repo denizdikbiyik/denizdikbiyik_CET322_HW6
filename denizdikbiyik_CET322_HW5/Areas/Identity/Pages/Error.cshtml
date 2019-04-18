@@ -1,0 +1,35 @@
+﻿@page
+@model ErrorModel
+@{
+    ViewData["Title"] = "Hata";
+}
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jodit/3.1.92/jodit.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jodit/3.1.92/jodit.min.js"></script>
+
+<section class="ab-info-main py-md-5">
+    <div class="container py-md-3">
+        <h1 class="text-danger">Hata.</h1>
+        <h2 class="text-danger">İşleminiz gerçekleştirilirken bir hata oluştu.</h2>
+
+        @if (Model.ShowRequestId)
+        {
+            <p>
+                <strong>İşlem No:</strong> <code>@Model.RequestId</code>
+            </p>
+        }
+
+        <h3>Geliştirme Modu</h3>
+        <p>
+            Swapping to <strong>Development</strong> environment will display more detailed information about the error that occurred.
+        </p>
+        <p>
+            <strong>Development environment should not be enabled in deployed applications</strong>, as it can result in sensitive information from exceptions being displayed to end users. For local debugging, development environment can be enabled by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>, and restarting the application.
+        </p>
+    </div>
+</section>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        var editor = new Jodit('#Content');
+    </script>
+}

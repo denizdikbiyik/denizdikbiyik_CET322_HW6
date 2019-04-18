@@ -1,0 +1,9 @@
+﻿@model IList<Department>
+@foreach (var item in Model)
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Departments"
+           asp-action="Details" asp-route-id="@item.Id">@item.DepartmentName</a>
+    </li>
+}
+

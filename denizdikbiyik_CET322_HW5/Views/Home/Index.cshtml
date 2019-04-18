@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Ana Sayfa";
+}
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jodit/3.1.92/jodit.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jodit/3.1.92/jodit.min.js"></script>
+
+<section class="ab-info-main py-md-5">
+    <div class="container py-md-3">
+        <div class="text-center">
+            <h1 class="display-4">Merhaba, Boğaziçi Üniversitesi <br /> Öğrenci Bilgi Sistemine Hoş Geldiniz!</h1>
+            <p><br /></p>
+            <p style="color:maroon;font-family:tahoma;font-weight:bold;font-size:125%">
+                Lütfen ilgili butonlar ile yapmak istediğiniz işlemi seçiniz.
+                Öğrenci Listesi sayfasından tüm öğrencilerin bilgilerine ulaşabilir, detaylı bilgi için detay butonuna tıklayabilirsiniz.
+                Departman Listesi sayfasında departmanlar listelenmektedir. O departmandaki öğrencileri görüntülemek için detay butonuna tıklayabilirsiniz.
+            </p>
+            <p><br /></p>
+            <img src="https://im.haberturk.com/2018/03/30/ver1522422660/1899054_620x410.jpg">
+            <p><br /><br /><a href="https://cet.boun.edu.tr">Bölüm web sitesini </a>ziyaret etmeyi unutmayınız!</p>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        var editor = new Jodit('#Content');
+    </script>
+}

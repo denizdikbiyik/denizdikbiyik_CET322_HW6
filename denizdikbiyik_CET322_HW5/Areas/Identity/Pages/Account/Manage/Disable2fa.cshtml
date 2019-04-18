@@ -1,0 +1,38 @@
+﻿@page
+@model Disable2faModel
+@{
+    ViewData["Title"] = "İki faktörlü kimliği engelle (2FA)";
+    ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
+}
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jodit/3.1.92/jodit.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jodit/3.1.92/jodit.min.js"></script>
+
+<section class="ab-info-main py-md-5">
+    <div class="container py-md-3">
+        <partial name="_StatusMessage" for="StatusMessage" />
+        <h1>@ViewData["Title"]</h1>
+
+        <div class="alert alert-warning" role="alert">
+            <p>
+                <span class="glyphicon glyphicon-warning-sign"></span>
+                <strong>Bu işlem sadece şunu engeller: 2FA.</strong>
+            </p>
+            <p>
+                2FA engellemek kimlik uygulamalarınızı ve anahtarınızı değiştirmez. Eğer kimlik uygulamasında kullanılan 
+                anahtarı değiştirmek istiyorsanız, <a asp-page="./ResetAuthenticator">kimlik anahtarlarınızı resetleyin.</a>
+            </p>
+        </div>
+
+        <div>
+            <form method="post" class="form-group">
+                <button class="btn btn-danger" type="submit">Engelle: 2FA</button>
+            </form>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        var editor = new Jodit('#Content');
+    </script>
+}

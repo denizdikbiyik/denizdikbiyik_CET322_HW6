@@ -1,0 +1,48 @@
+﻿@model denizdikbiyik_CET322_HW5.Models.Department
+
+@{
+    ViewData["Title"] = "Sil";
+}
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jodit/3.1.92/jodit.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jodit/3.1.92/jodit.min.js"></script>
+
+<section class="ab-info-main py-md-5">
+    <div class="container py-md-3">
+        <h1>Sil</h1>
+        <br />
+        <h3>Silmek istediğinize emin misiniz?</h3>
+        <br />
+        <div>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2">
+                    <label asp-for="DepartmentName" class="control-label">Departman Adı</label>
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.DepartmentName)
+                </dd>
+                <dt class="col-sm-2">
+                    <label class="control-label">Son Güncelleme</label>
+                </dt>
+                <dd class="col-sm-10">
+                    @if (Model.CetUser == null)
+                    {<text>Bilinmiyor</text> }
+                else
+                {@Model.CetUser.FirstName <br /> @Model.CetUser.LastName} şu tarihte: @Model.CreatedDate.ToLongDateString()
+            </dd>
+            </dl>
+
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="Id" />
+                <input type="submit" value="Sil" class="btn btn-danger" /> |
+                <a asp-action="Index">Listeye Dön</a>
+            </form>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        var editor = new Jodit('#Content');
+    </script>
+}

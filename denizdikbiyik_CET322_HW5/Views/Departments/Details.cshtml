@@ -1,0 +1,51 @@
+﻿@model denizdikbiyik_CET322_HW5.Models.Department
+
+@{
+    ViewData["Title"] = "Detaylar";
+}
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jodit/3.1.92/jodit.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jodit/3.1.92/jodit.min.js"></script>
+
+<section class="ab-info-main py-md-5">
+    <div class="container py-md-3">
+
+        <h1>Detaylar</h1>
+        <br />
+        <div>
+            <h4>Departman - @Model.DepartmentName</h4>
+            <hr />
+            @foreach (var post in Model.Students)
+            {
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @post.StudentName
+                </dt>
+                <dd class="col-sm-10">
+                    <a asp-controller="Students" asp-action="Details" asp-route-id="@post.StudentId" class="btn btn-primary"> Bilgi </a>
+
+                </dd>
+                <dt class="col-sm-2">
+                    <label class="control-label">Son güncelleme</label>
+                </dt>
+                <dd class="col-sm-10">
+                    @if (Model.CetUser == null)
+                    {<text>Bilinmiyor</text> }
+                else
+                {@Model.CetUser.FirstName <br /> @Model.CetUser.LastName} şu tarihte: @Model.CreatedDate.ToLongDateString()
+            </dd>
+            </dl>
+            }
+        </div>
+        <div>
+            @if ((User.Identity.IsAuthenticated && Model.CetUser != null && User.Identity.Name == Model?.CetUser?.UserName) || (User.IsInRole("admin"))) {
+                <a asp-action="Edit" asp-route-id="@Model.Id">Düzenle</a> }|
+            <a asp-action="Index">Listeye Dön</a>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        var editor = new Jodit('#Content');
+    </script>
+}
